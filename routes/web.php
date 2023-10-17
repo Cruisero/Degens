@@ -20,3 +20,11 @@ Route::get('/', 'PagesController@root')->name('root');
 //     return view('app');
 // })
 // ->name('application');
+
+Auth::routes();
+
+
+
+Auth::routes();
+
+
