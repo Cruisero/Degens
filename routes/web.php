@@ -21,10 +21,7 @@ Route::get('/', 'PagesController@root')->name('root');
 // })
 // ->name('application');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-
-
-Auth::routes();
 
 
