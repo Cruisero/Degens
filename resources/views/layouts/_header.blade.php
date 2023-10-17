@@ -33,6 +33,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               {{ csrf_field() }}
             </form>
+            <a href="{{ route('user_addresses.index') }}" class="dropdown-item">收货地址</a>
           </div>
         </li>
         @endguest
