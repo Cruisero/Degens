@@ -4,15 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserAddressRequest extends FormRequest
+class UserAddressRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
-    }
+    // public function authorize(): bool
+    // {
+    //     return false;
+    // }
 
     /**
      * Get the validation rules that apply to the request.
@@ -30,6 +30,17 @@ class UserAddressRequest extends FormRequest
             'contact_name'  => 'required',
             'contact_phone' => 'required',
         ];
-        return redirect()->route('user_addresses.index');
+
+
+
+    }
+
+    public function attributes()
+    {
+        return [
+            'zip'           => '邮编',
+            'contact_name'  => '姓名',
+            'contact_phone' => '电话',
+        ];
     }
 }

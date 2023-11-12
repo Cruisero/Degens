@@ -12,15 +12,25 @@
         </div>
         <div class="card-body">
 
-
-          <form class="form-horizontal" role="form" action="{{ route('user_addresses.store') }}" method="post">
+        <!-- 输出后端报错开始 -->
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <h4>有错误发生：</h4>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+        @endif
+            <form class="form-horizontal" role="form" action="{{ route('user_addresses.store') }}" method="post">
             <div id="app">
+
+                {{ csrf_field() }}
+              <user-addresses-create-and-edit>
                 <input type="hidden" name="province" v-model="province">
                 <input type="hidden" name="city" v-model="city">
                 <input type="hidden" name="district" v-model="district">
-
-              <user-addresses-create-and-edit>
-
              </user-addresses-create-and-edit>
 
                 <!-- 插入了 3 个隐藏的字段 -->
