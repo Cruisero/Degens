@@ -1,0 +1,3 @@
+在 SelectDistrict.vue 文件中，cities 和 districts 被声明为普通对象，但在后面的代码中被当作 ref 对象使用（.value）。
+这可能会导致错误。应该使用 ref({}) 或 reactive({}) 来声明它们。
+

@@ -4,13 +4,18 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import './bootstrap';
-// import '../css/app.css';
-import { createApp } from "vue";
-const app = createApp({})
-app.mount("#app");
+// app.js
 
+import { createApp } from 'vue'
+import SelectDistrict from './components/SelectDistrict.vue'
+import UserAddressesCreateAndEdit from './components/UserAddressesCreateAndEdit.vue'
 
+const app = createApp()
+
+app.component('select-district', SelectDistrict)
+app.component('user-addresses-create-and-edit', UserAddressesCreateAndEdit)
+
+app.mount('#app')
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
