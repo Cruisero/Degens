@@ -43,6 +43,19 @@
   const districts = ref('');
   const emit = defineEmits();
 
+    // 当省、市、区的选择改变时，发出事件
+    watch(provinceId, () => emitUpdate());
+    watch(cityId, () => emitUpdate());
+    watch(districtId, () => emitUpdate());
+
+    function emitUpdate() {
+        emit('update', {
+            province: provinces[provinceId.value],
+            city: cities.value[cityId.value],
+            district: districts.value[districtId.value]
+        });
+        }
+
   watch(provinceId, (newVal) => {
     if (!newVal) {
       cities.value = {};

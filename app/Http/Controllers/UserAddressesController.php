@@ -22,6 +22,8 @@ class UserAddressesController extends Controller
 
     public function store(UserAddressRequest $request)
     {
+        // dd($request->user()->addresses());
+
         $request->user()->addresses()->create($request->only([
             'province',
             'city',
@@ -31,6 +33,7 @@ class UserAddressesController extends Controller
             'contact_name',
             'contact_phone',
         ]));
+
 
         return redirect()->route('user_addresses.index');
     }

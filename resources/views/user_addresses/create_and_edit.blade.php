@@ -28,9 +28,9 @@
 
                 {{ csrf_field() }}
               <user-addresses-create-and-edit>
-                <input type="hidden" name="province" v-model="province">
-                <input type="hidden" name="city" v-model="city">
-                <input type="hidden" name="district" v-model="district">
+                <input type="hidden" name="province" v-model="address.province">
+                <input type="hidden" name="city" v-model="address.city">
+                <input type="hidden" name="district" v-model="address.district">
              </user-addresses-create-and-edit>
 
                 <!-- 插入了 3 个隐藏的字段 -->
@@ -44,6 +44,12 @@
                     <input type="text" class="form-control" name="address" value="{{ old('address', $address->address) }}">
                     </div>
                 </div>
+                <div class="form-group row mt-3">
+                    <label class="col-form-label text-md-right col-sm-2">邮编</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="zip" value="{{ old('zip', $address->zip) }}">
+                    </div>
+                  </div>
                 <div class="form-group row mt-3">
                     <label class="col-form-label text-md-right col-sm-2">姓名</label>
                     <div class="col-sm-9">
