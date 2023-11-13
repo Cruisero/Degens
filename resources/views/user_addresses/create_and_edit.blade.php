@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', '新增收货地址')
+@section('title', ($address->id ? '修改': '新增') . '收货地址')
 
 @section('content')
   <div class="row">
@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-header">
           <h2 class="text-center">
-            新增收货地址
+            {{ $address->id ? '修改': '新增' }}收货地址
           </h2>
         </div>
         <div class="card-body">
@@ -27,7 +27,7 @@
             <div id="app">
 
                 {{ csrf_field() }}
-              <user-addresses-create-and-edit>
+              <user-addresses-create-and-edit :initial-address="{{ json_encode([old('province', $address->province), old('city', $address->city), old('district', $address->district)]) }}">
 
              </user-addresses-create-and-edit>
 

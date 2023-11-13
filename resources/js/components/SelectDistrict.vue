@@ -29,15 +29,21 @@
 
 
   <script setup>
-  import { ref, watch } from 'vue';
+  import { ref, watch,defineProps } from 'vue';
   import addressData from 'china-area-data/v5/data';
   import _ from 'lodash';
 
+  const props = defineProps({
+  initialAddress: Object
+});
 
 
-  const provinceId = ref('');
-  const cityId = ref('');
-  const districtId = ref('');
+//   const provinceId = ref('');
+//   const cityId = ref('');
+//   const districtId = ref('');
+    const provinceId = ref(props.initialAddress ? props.initialAddress.provinceId : '');
+    const cityId = ref(props.initialAddress ? props.initialAddress.cityId : '');
+    const districtId = ref(props.initialAddress ? props.initialAddress.districtId : '');
   const provinces = addressData['86'];
   const cities = ref('');
   const districts = ref('');
@@ -55,7 +61,6 @@
             district: districts.value[districtId.value]
         });
         }
-
   watch(provinceId, (newVal) => {
     if (!newVal) {
       cities.value = {};
