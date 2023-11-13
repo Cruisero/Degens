@@ -28,9 +28,7 @@
 
                 {{ csrf_field() }}
               <user-addresses-create-and-edit>
-                <input type="hidden" name="province" v-model="address.province">
-                <input type="hidden" name="city" v-model="address.city">
-                <input type="hidden" name="district" v-model="address.district">
+
              </user-addresses-create-and-edit>
 
                 <!-- 插入了 3 个隐藏的字段 -->

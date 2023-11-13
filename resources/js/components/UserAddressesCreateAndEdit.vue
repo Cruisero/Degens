@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- 其他组件内容 -->
-
+        <input type="hidden" name="province" v-model="address.province">
+        <input type="hidden" name="city" v-model="address.city">
+        <input type="hidden" name="district" v-model="address.district">
     <!-- 引入SelectDistrict.vue组件 -->
     <select-district @update="handleDistrictChange"></select-district>
   </div>
@@ -27,15 +29,14 @@ export default {
     })
 
     const updateAddress = (val) => {
-      // validate and update address
-      address.province = data.province
+        address.province = val.province;
+        address.city = val.city;
+        address.district = val.district;
 
     }
     const handleDistrictChange = (data) => {
-    address.province = data.province;
-    address.city = data.city;
-    address.district = data.district;
-    // console.log('Updated address:', address);
+        updateAddress(data);
+
     };
 
     return {
@@ -43,9 +44,6 @@ export default {
       updateAddress,
       handleDistrictChange
 
-    //   province: address.province,
-    //   city: address.city,
-    //   district: address.district
 
   }
     }
@@ -53,3 +51,4 @@ export default {
 
 
 </script>
+
