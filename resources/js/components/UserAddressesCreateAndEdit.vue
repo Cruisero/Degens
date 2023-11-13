@@ -23,8 +23,10 @@ export default {
 
 
   props: {
-    initialAddress: Object
+    initialAddress: Object,
+
   },
+
 
     setup(){
     // console.log(initialAddress); // 打印初始地址看是否正确

@@ -27,7 +27,7 @@
             <div id="app">
 
                 {{ csrf_field() }}
-              <user-addresses-create-and-edit :initial-address="{{ json_encode([old('province', $address->province), old('city', $address->city), old('district', $address->district)]) }}">
+              <user-addresses-create-and-edit :initial-address="{{ json_encode([old('province', $address->province), old('cityId', $address->city), old('districtId', $address->district)]) }}">
 
              </user-addresses-create-and-edit>
 
