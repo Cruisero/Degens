@@ -26,7 +26,11 @@
                 <td>{{ $address->contact_phone }}</td>
                 <td>
                   <a href="{{ route('user_addresses.edit', ['user_address' => $address->id]) }}" class="btn btn-primary me-2">修改</a>
-                  <button class="btn btn-danger me-3">删除</button>
+                  <form id="delete-form-{{ $address->id }}" action="{{ route('user_addresses.destroy', ['user_address' => $address->id]) }}" method="post" style="display: none;">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                  </form>
+                  <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $address->id }})">删除</button>
                 </td>
               </tr>
             @endforeach
@@ -36,4 +40,25 @@
       </div>
     </div>
   </div>
+@endsection
+@section('scriptsAfterJs')
+<script>
+    function confirmDelete(addressId) {
+        console.log("Trying to delete address with ID:", addressId);
+      Swal.fire({
+        title: '确定要删除这个地址吗?',
+        text: "删除后将无法恢复！",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是的，删除它！'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 执行删除操作，例如提交一个表单
+          document.getElementById('delete-form-' + addressId).submit();
+        }
+      });
+    }
+    </script>
 @endsection

@@ -9,6 +9,8 @@
 import { createApp } from 'vue'
 import SelectDistrict from './components/SelectDistrict.vue'
 import UserAddressesCreateAndEdit from './components/UserAddressesCreateAndEdit.vue'
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const app = createApp()
 
@@ -17,6 +19,7 @@ app.component('user-addresses-create-and-edit', UserAddressesCreateAndEdit)
 
 app.mount('#app')
 
+window.Swal = Swal;
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
