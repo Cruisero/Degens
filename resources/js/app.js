@@ -5,7 +5,7 @@
  */
 
 // app.js
-
+import 'bootstrap';
 import { createApp } from 'vue'
 import SelectDistrict from './components/SelectDistrict.vue'
 import UserAddressesCreateAndEdit from './components/UserAddressesCreateAndEdit.vue'
