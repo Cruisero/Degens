@@ -40,12 +40,9 @@
 });
 
 
-//   const provinceId = ref('');
-//   const cityId = ref('');
-//   const districtId = ref('');
-  const provinceId = ref(props.initialAddress ? props.initialAddress.provinceId : '');
-  const cityId = ref(props.initialAddress ? props.initialAddress.cityId : '');
-  const districtId = ref(props.initialAddress ? props.initialAddress.districtId : '');
+  const provinceId = ref('');
+  const cityId = ref('');
+  const districtId = ref('');
   const provinces = addressData['86'];
   const cities = ref('');
   const districts = ref('');

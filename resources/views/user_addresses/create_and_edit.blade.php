@@ -23,7 +23,12 @@
             </ul>
         </div>
         @endif
-            <form class="form-horizontal" role="form" action="{{ route('user_addresses.store') }}" method="post">
+            @if($address->id)
+            <form class="form-horizontal" role="form" action="{{ route('user_addresses.update', ['user_address' => $address->id]) }}" method="post">
+            {{ method_field('PUT') }}
+            @else
+                <form class="form-horizontal" role="form" action="{{ route('user_addresses.store') }}" method="post">
+            @endif
             <div id="app">
 
                 {{ csrf_field() }}

@@ -38,6 +38,21 @@ class UserAddressesController extends Controller
         return redirect()->route('user_addresses.index');
     }
 
+    public function update(UserAddress $user_address, UserAddressRequest $request)
+    {
+        $user_address->update($request->only([
+            'province',
+            'city',
+            'district',
+            'address',
+            'zip',
+            'contact_name',
+            'contact_phone',
+        ]));
+
+        return redirect()->route('user_addresses.index');
+    }
+
     public function edit(UserAddress $user_address)
     {
         // dd($user_address);
