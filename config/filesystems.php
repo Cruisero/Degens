@@ -55,7 +55,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
+    'admin'=> [ 'driver' => 'local',
+                'root'   => storage_path('app'),
+                'visibility' => 'public',
+                'url' => env('APP_URL').'/storage',
+            ],
+//laravel-admin 管理员页面报错Disk [admin] not configured, please add a disk config in `config/filesystems.php`.需要加上以上'admin'配置
     ],
 
     /*
