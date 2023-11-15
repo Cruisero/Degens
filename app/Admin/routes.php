@@ -19,5 +19,7 @@ Route::group([
     $router->post('products', 'ProductsController@store');
     $router->get('products/{id}/edit', 'ProductsController@edit');
     $router->put('products/{id}', 'ProductsController@update');
+    // $router->put('products/{id}/edit', 'ProductsController@Delete');
+    $router->delete('products/{id}', 'ProductsController@destroy');
 
 });

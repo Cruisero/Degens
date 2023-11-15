@@ -40,12 +40,12 @@ class ProductsController extends AdminController
             $actions->disableView();
             $actions->disableDelete();
         });
-        $grid->tools(function ($tools) {
-            // 禁用批量删除按钮
-            $tools->batch(function ($batch) {
-                $batch->disableDelete();
-            });
-        });
+        // $grid->tools(function ($tools) {
+        //     // 禁用批量删除按钮
+        //     $tools->batch(function ($batch) {
+        //         $batch->disaleDelete();
+        //     });
+        // });
 
         return $grid;
     }
