@@ -8,9 +8,12 @@ Route::group([
     'prefix'        => config('admin.route.prefix'),
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
-    'as'            => config('admin.route.prefix') . '.',
+    // 'as'            => config('admin.route.prefix') . '.',
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
+    $router->get('users', 'UserController@index');
+    // $router->resource('users', UserController::class);
+
 
 });
