@@ -1,0 +1,32 @@
+这期实现这个功能当用户点击各个 SKU 的时候价格和剩余库存变化因为vue3和laravel10并没有jQuery，所以$的js全局并不能使用，而且导入麻烦，所以索性使用新的Js代码或者Vue3组件直接
+解决这个问题，比如期实现当用户点击各个 SKU 的时候价格和剩余库存变化，原版是可以通过以下代码逻辑实现：
+.
+.
+.
+@foreach($product->skus as $sku)
+  <label
+      class="btn sku-btn"
+      data-price="{{ $sku->price }}"
+      data-stock="{{ $sku->stock }}"
+      data-toggle="tooltip"
+      title="{{ $sku->description }}"
+      data-placement="bottom">
+    <input type="radio" name="skus" autocomplete="off" value="{{ $sku->id }}"> {{ $sku->title }}
+  </label>
+@endforeach
+.
+.
+.
+@section('scriptsAfterJs')
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    $('.sku-btn').click(function () {
+      $('.product-info .price span').text($(this).data('price'));
+      $('.product-info .stock').text('库存：' + $(this).data('stock') + '件');
+    });
+  });
+</script>
+@endsection
+但是$没法用，所以这里我们使用新的Js逻辑来实现，当然这里还可以使用Vue3组件来实现这个功能，使用 Vue 的响应式系统来动态更新价格和库存信息，而不是直接操作 DOM。
+果您的页面或应用主要基于 Vue 构建，则建议使用 Vue 的方法。如果是一个主要由服务器渲染的页面，并且只需要少量的交互，那么使用纯 JavaScript 也是一个很好的选择。
