@@ -21,6 +21,9 @@ Route::get('/', 'PagesController@root')->name('root');
 // })
 // ->name('application');
 
+Auth::routes();
+
+// 在之前的路由里加上一个 verify 参数
 Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
@@ -30,6 +33,9 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update');
     Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
     Route::redirect('/', '/products')->name('root');
+    Route::post('/products/{product}/favor', 'ProductsController@favor')->name('products.favor');
+    Route::delete('products/{product}/favorite', 'ProductsController@disfavor')->name('products.disfavor');
+
 });
 
 Route::get('products', 'ProductsController@index')->name('products.index');

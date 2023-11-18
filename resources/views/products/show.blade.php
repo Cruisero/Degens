@@ -36,9 +36,13 @@
         </div>
         <div class="cart_amount"><label>数量</label><input type="text" class="form-control form-control-sm" value="1"><span>件</span><span class="stock"></span></div>
         <div class="buttons">
-          <button class="btn btn-success btn-favor">❤ 收藏</button>
-          <button class="btn btn-primary btn-add-to-cart mx-lg-2">加入购物车</button>
-        </div>
+            @if($favored)
+              <button class="btn btn-danger btn-disfavor">取消收藏</button>
+            @else
+              <button class="btn btn-success btn-favor">❤ 收藏</button>
+            @endif
+            <button class="btn btn-primary btn-add-to-cart m-lg-2">加入购物车</button>
+          </div>
       </div>
     </div>
     <div class="product-detail">
@@ -64,11 +68,13 @@
 </div>
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @section('scriptsAfterJs')
 <script>
 
 
     document.addEventListener('DOMContentLoaded', () => {
+
         // 绑定 Tooltip
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))// 查询所有设置了 data-toggle="tooltip" 属性的 DOM 元素。
         tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -87,7 +93,69 @@
                 document.querySelector('.product-info .stock').textContent = `库存：${stock}件`;
             });
         });
-    });
+
+
+         // 找到收藏按钮并绑定点击事件
+        const favorButton = document.querySelector('.btn-favor');
+        if(favorButton){
+            favorButton.addEventListener('click', () => {
+            axios.post('{{ route('products.favor', ['product' => $product->id]) }}')
+        .then(function () { // 请求成功会执行这个回调
+            Swal.fire({
+            title: "Good job!",
+            icon: "success"
+            }).then(function () {
+            // 当 Swal 弹窗关闭时，刷新页面
+            location.reload();
+        });
+        }, function(error) { // 请求失败会执行这个回调
+          // 如果返回码是 401 代表没登录
+          if (error.response && error.response.status === 401) {
+            Swal.fire({
+            title: "请先登录!",
+            icon: "error"
+            });
+          } else if (error.response && (error.response.data.msg || error.response.data.message)) {
+            // 其他有 msg 或者 message 字段的情况，将 msg 提示给用户
+            Swal.fire({
+            title: errorData.msg ? errorData.msg : errorData.message,
+            icon: 'error',
+            });
+          }  else {
+            // 其他情况应该是系统挂了
+            Swal.fire({
+            title: "系统错误!",
+            icon: "error"
+            });
+          }
+        });
+
+
+
+        });
+        }
+
+
+        const disfavorButton = document.querySelector('.btn-disfavor');
+        if (disfavorButton) {
+            disfavorButton.addEventListener('click', () => {
+                axios.delete('{{ route('products.disfavor', ['product' => $product->id]) }}') // 使用正确的取消收藏路由
+                .then(function () {
+                    Swal.fire({
+                        title: "取消收藏成功",
+                        icon: "success"
+                    }).then(function () {
+                        location.reload();
+                    });
+                })
+            });
+        }
+
+
+
+})
+
+
 </script>
 @endsection
 
