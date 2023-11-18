@@ -5,13 +5,16 @@
  */
 
 // app.js
+// import jQuery from 'jquery';
 import 'bootstrap';
 import { createApp } from 'vue'
 import SelectDistrict from './components/SelectDistrict.vue'
 import UserAddressesCreateAndEdit from './components/UserAddressesCreateAndEdit.vue'
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css';
+// import jQuery from 'jquery';
 
+// import jQuery from './node_modules/jquery/dist/jquery.min.js';
 const app = createApp()
 
 app.component('select-district', SelectDistrict)
@@ -20,6 +23,12 @@ app.component('user-addresses-create-and-edit', UserAddressesCreateAndEdit)
 app.mount('#app')
 
 window.Swal = Swal;
+
+// window.$ = $;
+// window.$ = jQuery;
+// window.jQuery = jQuery;
+
+// console.log(jQuery);
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
