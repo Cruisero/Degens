@@ -67,17 +67,18 @@
 </div>
 </div>
 @endsection
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 @section('scriptsAfterJs')
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
 
     document.addEventListener('DOMContentLoaded', () => {
 
         // 绑定 Tooltip
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))// 查询所有设置了 data-toggle="tooltip" 属性的 DOM 元素。
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))// 查询所有设置了 data-toggle="tooltip" 属性的 DOM 元素。
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
             return new bootstrap.Tooltip(tooltipTriggerEl, {
                 trigger: 'hover' //设置触发方式：Tooltip 是设置为在鼠标悬停（hover）时触发。
             })
@@ -91,6 +92,15 @@
 
                 document.querySelector('.product-info .price span').textContent = price;
                 document.querySelector('.product-info .stock').textContent = `库存：${stock}件`;
+
+                   // 移除之前选中的 active 类
+                document.querySelectorAll('.sku-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+               // 给当前点击的按钮的父元素 label 添加 active 类
+               button.classList.add('active');
+
             });
         });
 
@@ -153,9 +163,61 @@
 
 
 
+    // 找到加入购物车按钮并绑定点击事件
+const addToCartButton = document.querySelector('.btn-add-to-cart');
+if (addToCartButton) {
+    addToCartButton.addEventListener('click', () => {
+        // 获取当前选中的 SKU
+        const activeLabel = document.querySelector('.sku-btn.active');
+        if (!activeLabel) {
+            Swal.fire({
+                title: "请选择商品规格",
+                icon: "warning"
+            });
+            return;
+        }
+        const skuId = activeLabel.querySelector('input[name=skus]').value;
+        const amount = document.querySelector('.cart_amount input').value;
+        const data = { sku_id: skuId, amount: amount };
+
+        // 通过 axios 发送 POST 请求
+        axios.post('{{ route('cart.add') }}', data)
+        .then(function () {
+            Swal.fire({
+                title: "加入购物车成功",
+                icon: "success"
+            });
+        })
+        .catch(function (error) {
+            // 如果返回码是 401 代表没登录
+            if (error.response && error.response.status === 401) {
+                Swal.fire({
+                    title: "请先登录",
+                    icon: "error"
+                });
+            } else if (error.response && (error.response.data.msg || error.response.data.message)) {
+                // 其他有 msg 或者 message 字段的情况，将 msg 提示给用户
+                const message = error.response.data.msg ? error.response.data.msg : error.response.data.message;
+                Swal.fire({
+                    title: message,
+                    icon: 'error',
+                });
+            } else {
+                // 其他情况应该是系统挂了
+                Swal.fire({
+                    title: "系统错误!",
+                    icon: "error"
+                });
+            }
+        });
+    });
+}
+
+
 })
 
 
 </script>
+
 @endsection
 

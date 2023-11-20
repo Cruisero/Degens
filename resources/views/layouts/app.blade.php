@@ -25,7 +25,7 @@
     <!-- JS 脚本 -->
     {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
-    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/app.js') --}}
     @yield('scriptsAfterJs')
 </body>
 </html>
