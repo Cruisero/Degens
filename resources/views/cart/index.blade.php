@@ -50,6 +50,31 @@
       @endforeach
       </tbody>
     </table>
+    <div>
+        <form class="form-horizontal" role="form" id="order-form">
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3 text-md-right">选择收货地址</label>
+            <div class="col-sm-9 col-md-7">
+              <select class="form-control" name="address">
+                @foreach($addresses as $address)
+                  <option value="{{ $address->id }}">{{ $address->full_address }} {{ $address->contact_name }} {{ $address->contact_phone }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group row mt-2">
+            <label class="col-form-label col-sm-3 text-md-right">备注</label>
+            <div class="col-sm-9 col-md-7">
+              <textarea name="remark" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group mt-2 ms-lg-2">
+            <div class="offset-sm-3 col-sm-3">
+              <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
+            </div>
+          </div>
+        </form>
+      </div>
   </div>
 </div>
 </div>
@@ -84,7 +109,61 @@
         });
       });
     });
+
+
+    // 监听创建订单按钮的点击事件
+    document.querySelectorAll('.btn-create-order').forEach(function(button) {
+      button.addEventListener('click', function() {
+        // 构建请求参数
+        var addressSelect = document.querySelector('#order-form select[name="address"]');
+        var remarkTextarea = document.querySelector('#order-form textarea[name="remark"]');
+        var req = {
+          address_id: addressSelect ? addressSelect.value : null,
+          items: [],
+          remark: remarkTextarea ? remarkTextarea.value : '',
+        };
+
+        // 遍历每个购物车中的商品 SKU
+        document.querySelectorAll('table tr[data-id]').forEach(function(row) {
+          var checkbox = row.querySelector('input[name="select"][type="checkbox"]');
+          var input = row.querySelector('input[name="amount"]');
+
+          if (checkbox && !checkbox.disabled && checkbox.checked) {
+            if (input && input.value != 0 && !isNaN(input.value)) {
+              req.items.push({
+                sku_id: row.getAttribute('data-id'),
+                amount: input.value,
+              });
+            }
+          }
+        });
+
+        // 发送请求
+        axios.post('{{ route('orders.store') }}', req)
+          .then(function(response) {
+            Swal.fire('订单提交成功', '', 'success');
+          })
+          .catch(function(error) {
+            if (error.response && error.response.status === 422) {
+              // 用户输入校验失败
+              var html = '<div>';
+              Object.values(error.response.data.errors).forEach(function(errors) {
+                errors.forEach(function(error) {
+                  html += error + '<br>';
+                });
+              });
+              html += '</div>';
+              Swal.fire({html: html, icon: 'error'});
+            } else {
+              // 系统错误
+              Swal.fire('系统错误', '', 'error');
+            }
+          });
+      });
+    });
   });
+
+
 </script>
 
 <script>
