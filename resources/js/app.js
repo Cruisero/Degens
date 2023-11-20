@@ -7,6 +7,8 @@
 // app.js
 // import jQuery from 'jquery';
 import 'bootstrap';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+//老版本使用webpack的话需要在scss文件里面导入，vite可直接在js文件中导入
 import { createApp } from 'vue'
 import SelectDistrict from './components/SelectDistrict.vue'
 import UserAddressesCreateAndEdit from './components/UserAddressesCreateAndEdit.vue'

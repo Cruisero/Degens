@@ -164,8 +164,8 @@
 
 
     // 找到加入购物车按钮并绑定点击事件
-const addToCartButton = document.querySelector('.btn-add-to-cart');
-if (addToCartButton) {
+    const addToCartButton = document.querySelector('.btn-add-to-cart');
+    if (addToCartButton) {
     addToCartButton.addEventListener('click', () => {
         // 获取当前选中的 SKU
         const activeLabel = document.querySelector('.sku-btn.active');
@@ -186,7 +186,10 @@ if (addToCartButton) {
             Swal.fire({
                 title: "加入购物车成功",
                 icon: "success"
-            });
+            })
+            .then(function() {
+          location.href = '{{ route('cart.index') }}';
+        });
         })
         .catch(function (error) {
             // 如果返回码是 401 代表没登录
