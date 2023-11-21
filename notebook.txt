@@ -30,3 +30,14 @@
 @endsection
 但是$没法用，所以这里我们使用新的Js逻辑来实现，当然这里还可以使用Vue3组件来实现这个功能，使用 Vue 的响应式系统来动态更新价格和库存信息，而不是直接操作 DOM。
 果您的页面或应用主要基于 Vue 构建，则建议使用 Vue 的方法。如果是一个主要由服务器渲染的页面，并且只需要少量的交互，那么使用纯 JavaScript 也是一个很好的选择。
+
+
+//关闭未支付订单时，docker redis的导入可使用在web.php中添加路由：
+
+use Illuminate\Support\Facades\Redis;
+
+Route::get('/redis-test', function () {
+    Redis::set('test', 'value');
+    return Redis::get('test');
+});
+如果页面有value出现则代表已成功带入redis

@@ -5,6 +5,9 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+
+    'order_ttl' => 1800,
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
