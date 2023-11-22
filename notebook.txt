@@ -41,3 +41,6 @@ Route::get('/redis-test', function () {
     return Redis::get('test');
 });
 如果页面有value出现则代表已成功带入redis
+
+//Class ‘Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory’ Not Found
+解决方案：composer require symfony/psr-http-message-bridge
