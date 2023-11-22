@@ -141,7 +141,10 @@
         // 发送请求
         axios.post('{{ route('orders.store') }}', req)
           .then(function(response) {
-            Swal.fire('订单提交成功', '', 'success');
+            Swal.fire('订单提交成功', '', 'success')
+            .then(() => {
+            location.href = '/orders/' + response.data.id;
+            });
           })
           .catch(function(error) {
             if (error.response && error.response.status === 422) {
