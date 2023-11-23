@@ -44,3 +44,7 @@ Route::get('/redis-test', function () {
 
 //Class ‘Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory’ Not Found
 解决方案：composer require symfony/psr-http-message-bridge
+
+//Yansongda\Pay3.5版本，报错解决[\Yansongda\Pay\Plugin\Alipay\Shortcut\VerifyShortcut] is not incompatible
+新版的 verify 改成了 callback 方法
+详情：https://github.com/yansongda/pay/issues/654

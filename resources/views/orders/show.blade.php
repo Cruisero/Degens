@@ -46,7 +46,7 @@
         <div class="line"><div class="line-label">订单备注：</div><div class="line-value">{{ $order->remark ?: '-' }}</div></div>
         <div class="line"><div class="line-label">订单编号：</div><div class="line-value">{{ $order->no }}</div></div>
       </div>
-      <div class="order-summary text-right">
+      <div class="order-summary text-end ">
         <div class="total-amount">
           <span>订单总价：</span>
           <div class="value">￥{{ $order->total_amount }}</div>
@@ -66,6 +66,13 @@
               未支付
             @endif
           </div>
+          <!-- 支付按钮开始 -->
+        @if(!$order->paid_at && !$order->closed)
+        <div class="payment-buttons">
+        <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
+        </div>
+        @endif
+        <!-- 支付按钮结束 -->
         </div>
       </div>
     </div>
