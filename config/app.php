@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'ngrok_url' => env('NGROK_URL'),
 
     'order_ttl' => 1800,
 
