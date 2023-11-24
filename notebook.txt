@@ -48,3 +48,13 @@ Route::get('/redis-test', function () {
 //Yansongda\Pay3.5版本，报错解决[\Yansongda\Pay\Plugin\Alipay\Shortcut\VerifyShortcut] is not incompatible
 新版的 verify 改成了 callback 方法
 详情：https://github.com/yansongda/pay/issues/654
+
+//Yansongda\Pay3.4回调地址无效的解决方法
+教程中是
+
+$config['notify_url'] = route('payment.alipay.notify');
+$config['return_url'] = route('payment.alipay.return');
+新版的是这样
+
+$config['alipay']['default']['notify_url'] = route('payment.alipay.notify');
+$config['alipay']['default']['return_url'] = route('payment.alipay.return');

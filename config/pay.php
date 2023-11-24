@@ -17,8 +17,8 @@ return [
             'alipay_public_cert_path' =>  env('ALIPAY_PUBLIC_CERT_PATH',storage_path('alipaycert/alipayPublicCert.crt')),
             // 必填-支付宝根证书 路径
             'alipay_root_cert_path' =>  env('APP_PUBLIC_ROOT_CERT_PATH',storage_path('alipaycert/alipayRootCert.crt')),
-            'return_url' => 'http://127.0.0.1/payment/alipay/return',
-            'notify_url' => 'http://127.0.0.1/payment/alipay/notify',
+            // 'return_url' => '',
+            // 'notify_url' => '',
             // 选填-第三方应用授权token
             'app_auth_token' => '',
             // 选填-服务商模式下的服务商 id，当 mode 为 Pay::MODE_SERVICE 时使用该参数
