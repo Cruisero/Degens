@@ -45,6 +45,18 @@
         <div class="line"><div class="line-label">收货地址：</div><div class="line-value">{{ join(' ', $order->address) }}</div></div>
         <div class="line"><div class="line-label">订单备注：</div><div class="line-value">{{ $order->remark ?: '-' }}</div></div>
         <div class="line"><div class="line-label">订单编号：</div><div class="line-value">{{ $order->no }}</div></div>
+          <!-- 输出物流状态 -->
+          <div class="line">
+            <div class="line-label">物流状态：</div>
+            <div class="line-value">{{ \App\Models\Order::$shipStatusMap[$order->ship_status] }}</div>
+          </div>
+          <!-- 如果有物流信息则展示 -->
+          @if($order->ship_data)
+          <div class="line">
+            <div class="line-label">物流信息：</div>
+            <div class="line-value">{{ $order->ship_data['express_company'] }} {{ $order->ship_data['express_no'] }}</div>
+          </div>
+          @endif
       </div>
       <div class="order-summary text-end ">
         <div class="total-amount">
@@ -73,6 +85,13 @@
         </div>
         @endif
         <!-- 支付按钮结束 -->
+          <!-- 如果订单的发货状态为已发货则展示确认收货按钮 -->
+          @if($order->ship_status === \App\Models\Order::SHIP_STATUS_DELIVERED)
+          <div class="receive-button">
+            <!-- 将原本的表单替换成下面这个按钮 -->
+            <button type="button" id="btn-receive" class="btn btn-sm btn-success">确认收货</button>
+          </div>
+          @endif
         </div>
       </div>
     </div>
@@ -80,4 +99,41 @@
 </div>
 </div>
 </div>
+@endsection
+
+@section('scriptsAfterJs')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取确认收货按钮
+    const btnReceive = document.getElementById('btn-receive');
+    if (btnReceive) {
+        btnReceive.addEventListener('click', function() {
+            // 弹出确认框
+            Swal.fire({
+                title: '确定收货吗?',
+                text: "确定后无法更改！",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirm'
+            })
+            .then(function(ret) {
+                // 如果点击取消按钮则不做任何操作
+                if (ret.value) {
+                    axios.post('{{ route('orders.received', [$order->id]) }}')
+                        .then(function() {
+                            location.reload();
+                        }).catch(function(error) {
+                            console.error('Request failed:', error);
+                        });
+                }
+            });
+        });
+    }
+});
+
+</script>
 @endsection
