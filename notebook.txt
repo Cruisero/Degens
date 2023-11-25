@@ -58,3 +58,6 @@ $config['return_url'] = route('payment.alipay.return');
 
 $config['alipay']['default']['notify_url'] = route('payment.alipay.notify');
 $config['alipay']['default']['return_url'] = route('payment.alipay.return');
+
+//Route [admin.orders.index] not defined. (View: /var/www/html/resources/views/admin/orders/show.blade.php)
+
