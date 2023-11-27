@@ -46,20 +46,23 @@
       </div>
     </div>
     <div class="product-detail">
-      <<ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <button class="nav-link active" id="product-detail-tab-tab" data-bs-toggle="tab" data-bs-target="#product-detail-tab" type="button" role="tab" aria-controls="product-detail-tab" aria-selected="true">商品详情</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" id="product-reviews-tab-tab" data-bs-toggle="tab" data-bs-target="#product-reviews-tab" type="button" role="tab" aria-controls="product-reviews-tab" aria-selected="false">用户评价</button>
-        </li>
-      </ul>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <button class="nav-link active" id="product-detail-tab-tab" data-bs-toggle="tab" data-bs-target="#product-detail-tab" type="button" role="tab" aria-controls="product-detail-tab" aria-selected="true">商品详情</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" id="product-reviews-tab-tab" data-bs-toggle="tab" data-bs-target="#product-reviews-tab" type="button" role="tab" aria-controls="product-reviews-tab" aria-selected="false">用户评价</button>
+            </li>
+          </ul>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
+        <div class="tab-pane fade show active" id="product-detail-tab" role="tabpanel" >
+
           {!! $product->description !!}
         </div>
-        <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
-                <!-- 评论列表开始 -->
+        {{-- <div role="tabpanel" class="tab-pane" id="product-reviews-tab"> --}}
+        <div class="tab-pane fade" id="product-reviews-tab" role="tabpanel">
+                <!-- 用户评价的内容 -->
+                 <!-- 评论列表开始 -->
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
