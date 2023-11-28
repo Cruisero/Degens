@@ -128,12 +128,18 @@
     document.querySelectorAll('.btn-create-order').forEach(function(button) {
       button.addEventListener('click', function() {
         // 构建请求参数
-        var addressSelect = document.querySelector('#order-form select[name="address"]');
-        var remarkTextarea = document.querySelector('#order-form textarea[name="remark"]');
+        // var addressSelect = document.querySelector('#order-form select[name="address"]');
+        // var remarkTextarea = document.querySelector('#order-form textarea[name="remark"]');
+        // var req = {
+        //   address_id: addressSelect ? addressSelect.value : null,
+        //   items: [],
+        //   remark: remarkTextarea ? remarkTextarea.value : '',
+        // };
         var req = {
-          address_id: addressSelect ? addressSelect.value : null,
-          items: [],
-          remark: remarkTextarea ? remarkTextarea.value : '',
+        address_id: document.querySelector('#order-form select[name="address"]').value,
+        items: [],
+        remark: document.querySelector('#order-form textarea[name="remark"]').value,
+        coupon_code: document.querySelector('input[name="coupon_code"]').value, // 从优惠码输入框中获取优惠码
         };
 
         // 遍历每个购物车中的商品 SKU
