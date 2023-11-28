@@ -57,11 +57,12 @@ class Order extends Model
         'address'   => 'json',
         'ship_data' => 'json',
         'extra'     => 'json',
+        'paid_at'   => 'datetime',
     ];
 
-    protected $dates = [
-        'paid_at',
-    ];
+    // protected $dates = [
+    //     'paid_at',
+    // ];
 
     protected static function boot()
     {

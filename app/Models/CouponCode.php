@@ -33,9 +33,11 @@ class CouponCode extends Model
      ];
      protected $casts = [
          'enabled' => 'boolean',
+         'not_before' => 'datetime',
+         'not_after' => 'datetime',
      ];
      // 指明这两个字段是日期类型
-     protected $dates = ['not_before', 'not_after'];
+    //  protected $dates = ['not_before', 'not_after'];
 
 
      public static function findAvailableCode($length = 16)

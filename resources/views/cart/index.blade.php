@@ -68,6 +68,19 @@
               <textarea name="remark" class="form-control" rows="3"></textarea>
             </div>
           </div>
+          <!-- 优惠码开始 -->
+        <div class="form-group row mt-2">
+            <label class="col-form-label col-sm-3 text-md-right">优惠码</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" name="coupon_code">
+            <span class="form-text text-muted" id="coupon_desc"></span>
+            </div>
+            <div class="col-sm-3">
+            <button type="button" class="btn btn-success" id="btn-check-coupon">检查</button>
+            <button type="button" class="btn btn-danger" style="display: none;" id="btn-cancel-coupon">取消</button>
+            </div>
+        </div>
+        <!-- 优惠码结束 -->
           <div class="form-group mt-2 ms-lg-2">
             <div class="offset-sm-3 col-sm-3">
               <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
@@ -164,7 +177,49 @@
           });
       });
     });
+
+      // 检查按钮点击事件
+document.getElementById('btn-check-coupon').addEventListener('click', function () {
+  // 获取用户输入的优惠码
+  const code = document.querySelector('input[name=coupon_code]').value;
+  // 如果没有输入则弹框提示
+  if (!code) {
+    Swal.fire('请输入优惠码', '', 'warning');
+    return;
+  }
+  // 调用检查接口
+  axios.get('/coupon_codes/' + encodeURIComponent(code))
+    .then(function (response) {  // 请求成功时会被调用
+      document.getElementById('coupon_desc').textContent = response.data.description; // 输出优惠信息
+      document.querySelector('input[name=coupon_code]').setAttribute('readonly', true); // 禁用输入框
+      document.getElementById('btn-cancel-coupon').style.display = 'block'; // 显示 取消 按钮
+      document.getElementById('btn-check-coupon').style.display = 'none'; // 隐藏 检查 按钮
+    })
+    .catch(function (error) {
+      // 处理错误响应
+      if (error.response && error.response.status === 404) {
+        Swal.fire('优惠码不存在', '', 'error');
+      } else if (error.response && error.response.status === 403) {
+        Swal.fire(error.response.data.msg, '', 'error');
+      } else {
+        Swal.fire('系统内部错误', '', 'error');
+      }
+    });
+});
+
+// 取消按钮点击事件
+  document.getElementById('btn-cancel-coupon').addEventListener('click', function () {
+  document.getElementById('coupon_desc').textContent = ''; // 隐藏优惠信息
+  document.querySelector('input[name=coupon_code]').removeAttribute('readonly');  // 启用输入框
+  document.getElementById('btn-cancel-coupon').style.display = 'none'; // 隐藏 取消 按钮
+  document.getElementById('btn-check-coupon').style.display = 'block'; // 显示 检查 按钮
+});
+
+
   });
+
+
+
 
 
 </script>
@@ -183,5 +238,7 @@
       });
     });
   </script>
+
+
 
 @endsection

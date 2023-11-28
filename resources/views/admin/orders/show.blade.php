@@ -14,7 +14,8 @@
           <td>买家：</td>
           <td>{{ $order->user->name }}</td>
           <td>支付时间：</td>
-          <td>{{ $order->paid_at}}</td>
+          {{-- <td>{{ $order->paid_at}}</td> --}}
+          <td>{{ $order->paid_at->format('Y-m-d H:i:s') }}</td>
           {{-- {{ \Carbon\Carbon::parse($order->paid_at)->format('Y-m-d H:i:s') }} --}}
 
         </tr>

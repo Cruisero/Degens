@@ -61,3 +61,13 @@ $config['alipay']['default']['return_url'] = route('payment.alipay.return');
 
 //Route [admin.orders.index] not defined. (View: /var/www/html/resources/views/admin/orders/show.blade.php)
 
+//在laravel10
+From Laravel 10.x
+
+
+protected $casts = [
+    'paid_at' => 'datetime'
+];
+
+laravel10  之前
+protected $dates = ['expired_at'];
